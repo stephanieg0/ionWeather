@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+angular.module('starter', ['ionic', 'angular-skycons'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -22,3 +22,55 @@ angular.module('starter', ['ionic'])
     }
   });
 })
+
+.controller('weatherCtl', function($http, $window, $scope){
+  var weather = this;
+
+  navigator.geolocation.getCurrentPosition(function (geopos){
+    
+    var lat = geopos.coords.latitude;
+    var lon = geopos.coords.longitude;
+    var apiKey = '2485e7cf38367fdd4ae514375860d9d0';
+    var url = '/api/forecast/' + apiKey + '/' + lat + ',' + lon;
+
+    console.log("url", url);
+
+    $http.get(url).then(function(res){
+      console.log(res)
+      console.log("res", res.data.currently.icon);
+      
+      weather.temp = parseInt(res.data.currently.temperature);     
+
+      weather.image = res.data.currently.icon;
+
+      $scope.CurrentWeather = {
+        forecast: {
+            icon: weather.image,
+            iconSize: 100,
+            color: "blue"
+        }
+    };
+        
+    });
+ 
+  });
+
+
+  weather.temp = "--";
+  weather.image = "";
+
+  
+  
+
+
+});
+
+
+// .config(function($stateProvider, $urlRouterProvider){
+//   // $stateProvider.state('root', {
+//   //   url: '/',
+//   //   template: '<h1>hello world</h1>'
+//   // });
+
+//   $urlRouterProvider.otherwise('/');
+// })
