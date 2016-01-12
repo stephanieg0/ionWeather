@@ -28,6 +28,7 @@ angular.module('starter', ['ionic', 'angular-skycons'])
 
   navigator.geolocation.getCurrentPosition(function (geopos){
     
+    console.log("geopos", geopos);
     var lat = geopos.coords.latitude;
     var lon = geopos.coords.longitude;
     var apiKey = '2485e7cf38367fdd4ae514375860d9d0';
@@ -36,8 +37,6 @@ angular.module('starter', ['ionic', 'angular-skycons'])
     console.log("url", url);
 
     $http.get(url).then(function(res){
-      console.log(res)
-      console.log("res", res.data.currently.icon);
       
       weather.temp = parseInt(res.data.currently.temperature);     
 

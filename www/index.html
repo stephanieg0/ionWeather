@@ -33,14 +33,15 @@
         <h1 class="title">ionWeather</h1>
       </ion-header-bar>
       <ion-content ng-controller="weatherCtl as weather">
-        <h1>{{weather.temp}}°F</h1>
-        <div class="{{weather.image}}">
-          {{weather.image}}
+        <div class="current-weather">{{weather.image}}</div>
+ 
+        <div class="graphics">
+
+          <h1>{{weather.temp}}°F</h1>  
           <skycon icon="CurrentWeather.forecast.icon" size="100"></skycon>
-        </div>         
-       
-        <img src="http://lorempixel.com/300/300/nature"/>
-      
+
+        </div>
+                          
       </ion-content>
     </ion-pane>
   </body>
