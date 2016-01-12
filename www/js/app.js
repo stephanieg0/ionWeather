@@ -79,11 +79,5 @@ angular.module('starter', ['ionic', 'angular-skycons'])
 });
 
 
-// .config(function($stateProvider, $urlRouterProvider){
-//   // $stateProvider.state('root', {
-//   //   url: '/',
-//   //   template: '<h1>hello world</h1>'
-//   // });
 
-//   $urlRouterProvider.otherwise('/');
-// })
+
