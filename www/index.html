@@ -6,6 +6,7 @@
     <title></title>
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,900,500' rel='stylesheet' type='text/css'>
     <link href="css/style.css" rel="stylesheet">
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
@@ -28,17 +29,18 @@
 
   <body ng-app="starter">
 
-    <ion-pane>
+    <ion-pane class="mainBody">
       <ion-header-bar class="bar-stable">
         <h1 class="title">ionWeather</h1>
       </ion-header-bar>
       <ion-content ng-controller="weatherCtl as weather">
-        <div class="current-weather">{{weather.image}}</div>
+        <div class="date">{{dateDisplay}}</div>
+        <div class="current-weather">{{weatherStatsDisplay}}</div>
  
         <div class="graphics">
 
           <h1>{{weather.temp}}°F</h1>  
-          <skycon icon="CurrentWeather.forecast.icon" size="100"></skycon>
+          <skycon icon="CurrentWeather.forecast.icon" size="100" color="CurrentWeather.forecast.color"></skycon>
 
         </div>
                           

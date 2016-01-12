@@ -24,13 +24,18 @@ angular.module('starter', ['ionic', 'angular-skycons'])
 })
 
 .controller('weatherCtl', function($http, $window, $scope){
+
+
   var weather = this;
 
-  navigator.geolocation.getCurrentPosition(function (geopos){
+  //Getting the current latitude and longitude in chrome
+  navigator.geolocation.getCurrentPosition(function (position){
     
-    console.log("geopos", geopos);
-    var lat = geopos.coords.latitude;
-    var lon = geopos.coords.longitude;
+    console.log("position", position);
+
+    var lat = position.coords.latitude;
+    var lon = position.coords.longitude;
+    //key from forecast api site.
     var apiKey = '2485e7cf38367fdd4ae514375860d9d0';
     var url = '/api/forecast/' + apiKey + '/' + lat + ',' + lon;
 
@@ -39,14 +44,16 @@ angular.module('starter', ['ionic', 'angular-skycons'])
     $http.get(url).then(function(res){
       
       weather.temp = parseInt(res.data.currently.temperature);     
+     
+      weather.stats = res.data.currently.icon;
 
-      weather.image = res.data.currently.icon;
+      $scope.weatherStatsDisplay = weather.stats.replace(/-/g, " ");
 
       $scope.CurrentWeather = {
         forecast: {
-            icon: weather.image,
+            icon: weather.stats,
             iconSize: 100,
-            color: "blue"
+            color: "white"
         }
     };
         
@@ -56,11 +63,18 @@ angular.module('starter', ['ionic', 'angular-skycons'])
 
 
   weather.temp = "--";
-  weather.image = "";
+  weather.stats = "";
 
   
-  
+  var currentDate = new Date();
+  var currentDay = currentDate.getDate();
+  var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+  var currentMonth = months[currentDate.getMonth()];
+  var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  var currentWeekDay = weekday[currentDate.getDay()];
 
+  $scope.dateDisplay = currentWeekDay + "," + " " + currentMonth + " " + currentDay;
+  console.log("currentDate", currentDate);
 
 });
 
