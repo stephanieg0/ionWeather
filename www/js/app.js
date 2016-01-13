@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'angular-skycons'])
+angular.module('starter', ['ionic'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -28,6 +28,9 @@ angular.module('starter', ['ionic', 'angular-skycons'])
 
   var weather = this;
 
+  var url = 'http://api.wunderground.com/api/6f553360d71d14af/conditions/geolookup/forecast/q/autoip.json';
+  console.log("url", url);
+  
   //Getting the current latitude and longitude in chrome
   navigator.geolocation.getCurrentPosition(function (position){
     
@@ -35,36 +38,22 @@ angular.module('starter', ['ionic', 'angular-skycons'])
 
     var lat = position.coords.latitude;
     var lon = position.coords.longitude;
-    //key from forecast api site.
-    var apiKey = '2485e7cf38367fdd4ae514375860d9d0';
-    var url = '/api/forecast/' + apiKey + '/' + lat + ',' + lon;
-
-    console.log("url", url);
+    
+    
 
     $http.get(url).then(function(res){
       console.log("res", res);
+
+      $scope.city = res.data.location.city;
+
+      $scope.state = res.data.location.state;
+      
+      $scope.stats = res.data.current_observation.icon;
+
+      $scope.temperatureF = res.data.current_observation.temp_f + "°F";
       //current temperatue
-      weather.temp = parseInt(res.data.currently.temperature);     
+      // weather.temp = parseInt(res.data.currently.temperature);     
 
-      //current weather stats
-      weather.stats = res.data.currently.icon;
-
-      $scope.weatherStatsDisplay = weather.stats.replace(/-/g, " ");
-      //object for icons
-      $scope.CurrentWeather = {
-        forecast: {
-            icon: weather.stats,
-            iconSize: 100,
-            color: "white"
-        }
-      };
-
-        //weeks temperature
-      var weekTemp = res.data.daily.data;
-      console.log("weekTemp", weekTemp );
-      for (var i = 0; i < weekTemp.length; i++){
-        console.log("weekTemp[i].apparentTemperatureMax", weekTemp[i].apparentTemperatureMax);     
-      }
         
     });//end of http request
  
@@ -74,7 +63,8 @@ angular.module('starter', ['ionic', 'angular-skycons'])
   weather.temp = "--";
   weather.stats = "";
 
-  
+
+  //Getting Date information.
   var currentDate = new Date();
   var currentDay = currentDate.getDate();
   var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];

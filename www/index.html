@@ -22,9 +22,6 @@
     <!-- your app's js -->
     <script src="js/app.js"></script>
 
-    <!-- weather icons -->
-    <script src="/lib/skycons/skycons.js"></script>
-    <script src="/lib/angular-skycons/angular-skycons.min.js"></script>
   </head>
 
   <body ng-app="starter">
@@ -35,12 +32,12 @@
       </ion-header-bar>
       <ion-content ng-controller="weatherCtl as weather">
         <div class="date">{{dateDisplay}}</div>
-        <div class="current-weather">{{weatherStatsDisplay}}</div>
+        <div class="date">{{city}} {{state}}</div>
+        <div class="current-weather">{{stats}}</div>
  
         <div class="graphics">
 
-          <h1 class="temperature">{{weather.temp}}°F</h1>  
-          <skycon icon="CurrentWeather.forecast.icon" size="100" color="CurrentWeather.forecast.color"></skycon>
+          <h1 class="temperature">{{temperatureF}}</h1>  
 
         </div>
                           
