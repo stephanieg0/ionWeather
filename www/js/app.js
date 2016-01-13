@@ -62,19 +62,37 @@ angular.module('starter', ['ionic'])
   }//end of WuData
 
 
-  var ids = [];
+  var history = [];
   //Search Button in Header
   weather.search = function () {
     
     $http.get(url + weather.searchQuery + ".json")
     .then(WuData)
     .then(function(res){
-      //adding each ids to the array for the search history
-      ids.push(res.data.current_observation.station_id);       
       
-      console.log("ids", ids);
+      //adding each ids to the array for the search history
+      //ids.push(res.data.current_observation.station_id); 
+      var id = res.data.current_observation.station_id;
+
+      var locationHistory = res.data.location.city + "," + res.data.location.state;
+      console.log("locationHistory", locationHistory);
+      history.push(locationHistory, id);
+      
+
+      localStorage.setItem("searchHistory", JSON.stringify(history));
+      
+      
+      //   var rv = {};
+
+      //   for (var i = 0; i < history.length; ++i) {
+
+      //     rv[i] = history[i];
+      //     console.log("rv", rv);
+      //   }
+   
+
       //local storage need a key and a value.
-      localStorage.setItem('searchHistory', JSON.stringify(ids));
+      // localStorage.setItem('searchHistory', JSON.stringify(HistObj));
     });
   }
 
