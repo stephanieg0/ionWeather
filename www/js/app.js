@@ -62,35 +62,31 @@ angular.module('starter', ['ionic'])
   }//end of WuData
 
 
-  var history = [];
+  // var history = [];
   //Search Button in Header
   weather.search = function () {
     
     $http.get(url + weather.searchQuery + ".json")
     .then(WuData)
     .then(function(res){
-      
       //adding each ids to the array for the search history
       //ids.push(res.data.current_observation.station_id); 
+
+      //defining current location and id that comes from res object
+      var location = res.data.location.city + "," + res.data.location.state;
       var id = res.data.current_observation.station_id;
-
-      var locationHistory = res.data.location.city + "," + res.data.location.state;
-      console.log("locationHistory", locationHistory);
-      history.push(locationHistory, id);
+      //setting the local storage to empty object or to get history.
+      var history = JSON.parse(localStorage.getItem('searchHistory')) || {};
       
-
-      localStorage.setItem("searchHistory", JSON.stringify(history));
+      //adding a key value pair to the history.
+      history[location] = id;
       
+      //setting the local storage with history object.
+      localStorage.setItem('searchHistory', JSON.stringify(history));
       
-      //   var rv = {};
-
-      //   for (var i = 0; i < history.length; ++i) {
-
-      //     rv[i] = history[i];
-      //     console.log("rv", rv);
-      //   }
-   
-
+      // console.log("locationHistory", locationHistory);
+      // history.push(locationHistory, id);
+      
       //local storage need a key and a value.
       // localStorage.setItem('searchHistory', JSON.stringify(HistObj));
     });
