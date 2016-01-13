@@ -25,44 +25,48 @@ angular.module('starter', ['ionic'])
 
 .controller('weatherCtl', function($http, $window, $scope){
 
-
   var weather = this;
 
+  //api url with unique key
   var url = 'http://api.wunderground.com/api/6f553360d71d14af/conditions/geolookup/forecast/q/autoip.json';
   console.log("url", url);
-  
-  //Getting the current latitude and longitude in chrome
+
+  //http request to api then pass stats into WuData function.
+  $http.get(url).then(WuData);
+
+  //Getting the current latitude and longitude in chrome for later use.
   navigator.geolocation.getCurrentPosition(function (position){
     
     console.log("position", position);
 
     var lat = position.coords.latitude;
     var lon = position.coords.longitude;
-    
-    
-
-    $http.get(url).then(function(res){
-      console.log("res", res);
-
-      $scope.city = res.data.location.city;
-
-      $scope.state = res.data.location.state;
-      
-      $scope.stats = res.data.current_observation.icon;
-
-      $scope.temperatureF = res.data.current_observation.temp_f + "°F";
-      //current temperatue
-      // weather.temp = parseInt(res.data.currently.temperature);     
-
-        
-    });//end of http request
- 
+     
   });//end of navigator function
 
 
-  weather.temp = "--";
-  weather.stats = "";
+  //Weather Stats coming from the http request.
+  function WuData (res) {
+    console.log("res", res);
 
+    $scope.city = res.data.location.city;
+
+    $scope.state = res.data.location.state;
+    
+    $scope.stats = res.data.current_observation.icon;
+
+    $scope.temperatureF = res.data.current_observation.temp_f + "°F";    
+
+  }//end of WuData
+
+  // weather.temp = "--";
+  // weather.stats = "";
+
+  //Search Button in Header
+  weather.search = function () {
+    console.log("button works");
+    $http.get(url + weather.searchQuery + ".json").then(WuData);
+  }
 
   //Getting Date information.
   var currentDate = new Date();
@@ -75,7 +79,7 @@ angular.module('starter', ['ionic'])
   $scope.dateDisplay = currentWeekDay + "," + " " + currentMonth + " " + currentDay;
   console.log("currentDate", currentDate);
 
-});
+});//end of controller
 
 
 

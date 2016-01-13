@@ -26,13 +26,25 @@
 
   <body ng-app="starter">
 
-    <ion-pane class="mainBody">
-      <ion-header-bar class="bar-stable">
+    <ion-pane class="mainBody" ng-controller="weatherCtl as weather">
+      <!--*** Header Content -->
+        <div class="bar bar-header item-input-inset">
+          <label class="item-input-wrapper">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="search" placeholder="Search" ng-model="weather.searchQuery">
+          </label>
+          <button class="button button-positive" ng-click="weather.search()">
+            Search
+          </button>
+        </div>
+      <!-- <ion-header-bar class="bar-stable">
         <div id="title">ionWeather</div>
-      </ion-header-bar>
-      <ion-content ng-controller="weatherCtl as weather">
+      </ion-header-bar> -->
+
+      <!--*** Controller Content -->
+      <ion-content>
         <div class="date">{{dateDisplay}}</div>
-        <div class="date">{{city}} {{state}}</div>
+        <div class="location">{{city}} {{state}}</div>
         <div class="current-weather">{{stats}}</div>
  
         <div class="graphics">
