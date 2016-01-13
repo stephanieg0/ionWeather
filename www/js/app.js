@@ -42,24 +42,33 @@ angular.module('starter', ['ionic', 'angular-skycons'])
     console.log("url", url);
 
     $http.get(url).then(function(res){
-      
+      console.log("res", res);
+      //current temperatue
       weather.temp = parseInt(res.data.currently.temperature);     
-     
+
+      //current weather stats
       weather.stats = res.data.currently.icon;
 
       $scope.weatherStatsDisplay = weather.stats.replace(/-/g, " ");
-
+      //object for icons
       $scope.CurrentWeather = {
         forecast: {
             icon: weather.stats,
             iconSize: 100,
             color: "white"
         }
-    };
+      };
+
+        //weeks temperature
+      var weekTemp = res.data.daily.data;
+      console.log("weekTemp", weekTemp );
+      for (var i = 0; i < weekTemp.length; i++){
+        console.log("weekTemp[i].apparentTemperatureMax", weekTemp[i].apparentTemperatureMax);     
+      }
         
-    });
+    });//end of http request
  
-  });
+  });//end of navigator function
 
 
   weather.temp = "--";

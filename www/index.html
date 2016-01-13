@@ -31,7 +31,7 @@
 
     <ion-pane class="mainBody">
       <ion-header-bar class="bar-stable">
-        <h1 class="title">ionWeather</h1>
+        <div id="title">ionWeather</div>
       </ion-header-bar>
       <ion-content ng-controller="weatherCtl as weather">
         <div class="date">{{dateDisplay}}</div>
@@ -39,7 +39,7 @@
  
         <div class="graphics">
 
-          <h1>{{weather.temp}}°F</h1>  
+          <h1 class="temperature">{{weather.temp}}°F</h1>  
           <skycon icon="CurrentWeather.forecast.icon" size="100" color="CurrentWeather.forecast.color"></skycon>
 
         </div>
