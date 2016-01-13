@@ -47,7 +47,7 @@ angular.module('starter', ['ionic'])
 
   //Weather Stats coming from the http request.
   function WuData (res) {
-    console.log("res", res);
+    //console.log("res", res);
 
     $scope.city = res.data.location.city;
 
@@ -55,17 +55,29 @@ angular.module('starter', ['ionic'])
     
     $scope.stats = res.data.current_observation.icon;
 
-    $scope.temperatureF = res.data.current_observation.temp_f + "°F";    
+    $scope.temperatureF = res.data.current_observation.temp_f + "°F"; 
 
+    //return to use in search function.
+    return res;   
   }//end of WuData
 
   // weather.temp = "--";
   // weather.stats = "";
 
+  var ids = [];
   //Search Button in Header
   weather.search = function () {
-    console.log("button works");
-    $http.get(url + weather.searchQuery + ".json").then(WuData);
+    
+    $http.get(url + weather.searchQuery + ".json")
+    .then(WuData)
+    .then(function(res){
+      //adding each ids to the array for the search history
+      ids.push(res.data.current_observation.station_id);       
+      
+      console.log("ids", ids);
+      //local storage need a key and a value.
+      localStorage.setItem('searchHistory', JSON.stringify(ids));
+    });
   }
 
   //Getting Date information.
