@@ -61,8 +61,6 @@ angular.module('starter', ['ionic'])
     return res;   
   }//end of WuData
 
-  // weather.temp = "--";
-  // weather.stats = "";
 
   var ids = [];
   //Search Button in Header
