@@ -25,14 +25,17 @@
   </head>
 
   <body ng-app="starter">
-
+    <ion-spinner icon="spiral"></ion-spinner>
     <ion-pane class="mainBody" ng-controller="weatherCtl as weather">
       <!--*** Header Content -->
+        
         <div class="bar bar-header item-input-inset">
-          <label class="item-input-wrapper">
-            <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="search" placeholder="Enter zip code" ng-model="weather.searchQuery">
-          </label>
+          <form ng-submit="weather.search()" class="item-input-wrapper">
+            <label class="item-input-wrapper">
+              <i class="icon ion-ios-search placeholder-icon"></i>
+              <input type="search" placeholder="Enter zip code" ng-model="weather.searchQuery">
+            </label>
+          </form>
           <button class="button button-positive" ng-click="weather.search()">
             Search
           </button>

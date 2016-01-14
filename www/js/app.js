@@ -74,6 +74,7 @@ angular.module('starter', ['ionic'])
 
       //defining current location and id that comes from res object
       var location = res.data.location.city + "," + res.data.location.state;
+      console.log("location", location);
       var id = res.data.current_observation.station_id;
       //setting the local storage to empty object or to get history.
       var history = JSON.parse(localStorage.getItem('searchHistory')) || {};
